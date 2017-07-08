@@ -1,0 +1,236 @@
+body{
+    background-color: #f5ece7;
+}
+
+div.stateBar {
+    border-style: solid;
+    border-radius: 5px;
+    border-width: medium;
+    border-color: #bcbfbe;
+    width: 370px;
+    height: 50px;
+    margin: 50px auto 10px auto;
+
+    color: #424242;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 190%;
+
+}
+
+div.scoreBar {
+
+    color: #ff6359;
+    width: 277px;
+
+    float: right;
+    margin-right: 0;
+    line-height: 200%;
+}
+
+div.menuBar {
+/*    border-style: solid;
+    border-radius: 5px;
+    border-width: medium;
+    border-color: #bcbfbe;*/
+    width: 370px;
+    height: 50px;
+    margin: 10px auto;
+
+}
+
+button {
+    background-color: #e2d9d6;
+    width: 100px;
+    height: 30px;
+    border-radius: 4px;
+
+    font-family: sans-serif;
+    font-weight: 500;
+    color: #424242;
+}
+
+button.btn-restart{
+    float: left;
+}
+
+button.btn-backStep{
+    margin-left: 35px;
+}
+
+button.btn-help{
+    float: right;
+}
+
+div.gameBox {
+    border-style: solid;
+    border-radius: 5px;
+    border-width: medium;
+    border-color: #84796e;
+    width: 370px;
+    height: 370px;
+    margin: auto;
+
+    /*文字样式*/
+    font-size: 32px;
+    font-weight: 900;
+    color: #424242; /*字体颜色*/
+    font-family: sans-serif;
+    text-align: center;
+    line-height: 250%;
+}
+
+div.bar{
+    margin: 5px 5px;
+}
+
+/*
+ *注意：
+ *  #blockX_Y 选择符必须分开写，因为js中要使用CSSStyleSheet来操作样式表！！！
+ */
+#block0_0{
+    width: 80px;
+    height: 80px;
+    background-color: #bebebe;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block0_1{
+    width: 80px;
+    height: 80px;
+    background-color: #bebebe;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block0_2{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block0_3{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+
+#block1_0{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block1_1{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block1_2{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block1_3{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+
+#block2_0{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block2_1{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block2_2{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block2_3{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+
+#block3_0{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block3_1{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block3_2{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
+
+#block3_3{
+    width: 80px;
+    height: 80px;
+    background-color: lightgreen;
+    margin: 5px 5px;
+    float: left; /*<------------实现水平排列效果*/
+    visibility: hidden;
+}
