@@ -1,8 +1,5 @@
-# 2048_v1.3.1
-A web game.
+> * 2048
+> * html/css/js 版
+> * 关键Api： "CssStyleshell"  
+> * 一个未解决的bug：只能在服务器环境下运行，如果用chrome直接打开StartGame.html的话就会获取样式表出错
 
-## About this version
- - Can only paly on PC browser ;
- - Fix a browser compatibility bug ;
- - Rebuid css ;
- - Standardlize the name of files and variables.

@@ -16,20 +16,6 @@ gameBox.saveBlocks();
 
 insertScore();
 
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-console.log("0");
-
 /*
 with(gameBox){
     setBlockNum("block0_0", 2);
