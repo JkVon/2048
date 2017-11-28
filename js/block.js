@@ -56,10 +56,8 @@ Block.prototype = {
 
         block = document.getElementById(blockID);
         document.getElementById(blockID).firstChild.nodeValue = blockNum;
-        // console.log("000000000000000000000000000=====" + blockNum);
         for(i=0; i<block.classList.length; i++){
             if(/block--\d+/.test(block.classList[i])){
-                // console.log("~~~~~~~~~~~~~~"+block.classList[i]);
                 block.classList.remove(block.classList[i]);
             }
         }
@@ -84,10 +82,11 @@ Block.prototype = {
             returnVal = null;   //返回
             if (hideOrShow === "hide") {
 
-                // if block was show
+                // if block was show then hide it
                 if(block.classList.contains("block--show")) {
                     block.classList.remove("block--show");
                     block.classList.add("block--hide");
+                    this.setBlockNum(blockID, "");
                     returnVal = true;
                 }
                 else {
@@ -122,4 +121,3 @@ Block.prototype = {
     }
 
 };
-//// block.contains("hide");

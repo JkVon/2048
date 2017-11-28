@@ -3,10 +3,66 @@
  * Created by JackyVon on 2017/6/26.
  */
 
+function closeDialog() {
+    var dialogWindow = document.getElementById("dialogWindow"),
+        helpWindow = document.getElementById("helpWindow"),
+        gameOverWindow = document.getElementById("gameOverWindow"),
+        startButton = document.getElementById("startButton"),
+        continueButton = document.getElementById("continueButton"),
+        winWindow = document.getElementById("winWindow"),
+        mainWindow = document.getElementById("main");
+
+    mainWindow.classList.remove("main--faded");
+    dialogWindow.classList.add("dialogWindow--hide");
+    helpWindow.classList.add("helpWindow--hide");
+    gameOverWindow.classList.add("gameOverWindow--hide");
+    winWindow.classList.add("winWindow--hide");
+    startButton.classList.add("startButton--hide");
+    continueButton.classList.add("continueButton--hide");
+
+}
+
+function restartGame() {
+    gameBox.cleanAllBlocks();
+    gameBox.randomCreateBlock();
+    gameBox.randomCreateBlock();
+
+    //保存初始状态便于返回上一步操作
+    gameBox.saveBlocks();
+
+    //重新计算总分
+    insertScore();
+
+    //重新添加事件
+    EventUtil.addHandler(window, "keydown", processDirectionKey);
+}
+
+function getHelp() {
+    var dialogWindow = document.getElementById("dialogWindow"),
+        helpWindow = document.getElementById("helpWindow"),
+        continueButton = document.getElementById("continueButton"),
+        mainWindow = document.getElementById("main");
+
+    mainWindow.classList.add("main--faded");
+    helpWindow.classList.remove("helpWindow--hide");
+    continueButton.classList.remove("continueButton--hide");
+    dialogWindow.classList.remove("dialogWindow--hide");
+}
+
+function gameOverDialog() {
+    var dialogWindow = document.getElementById("dialogWindow"),
+        gameOverWindow = document.getElementById("gameOverWindow"),
+        mainWindow = document.getElementById("main");
+
+    mainWindow.classList.add("main--faded");
+    gameOverWindow.classList.remove("gameOverWindow--hide");
+    dialogWindow.classList.remove("dialogWindow--hide");
+}
 
 /* 函数功能：在分数栏中为DOM中插入当前block值的总和 */
 function insertScore() {
     document.getElementById("scoreBar").firstChild.nodeValue = gameBox.calculateTotalScore();
+    document.getElementById("dialogScore").firstChild.nodeValue = gameBox.calculateTotalScore();
 }
 
 /*
@@ -140,190 +196,6 @@ function testProcessBlock(block0_X, block0_Y, block1_X, block1_Y, block2_X, bloc
     return result;
 }
 
-/* 【收获】：由于我的懒惰，我把20行代码写成了200行,而且还bug百出！！ */
-function __XXX__processBlock(block0_X, block0_Y, block1_X, block1_Y, block2_X, block2_Y, block3_X, block3_Y) {
-
-    /* 要返回的对象 */
-    var result ={
-        combineHappen: 0, // 记录此次操作发生的combineBlock动作的次数
-        moveHappen: 0 // 记录此次操作发生的moveBlock动作的次数
-    };
-
-    if(!gameBlock.isHided(block3_X, block3_Y)){
-        if(!gameBlock.isHided(block2_X, block2_Y)){
-            if(gameBox.blockEqual(block2_X, block2_Y, block3_X, block3_Y)){
-                gameBox.combineBlock(block2_X, block2_Y, block3_X, block3_Y);
-                result.combineHappen++;
-                if(!gameBlock.isHided(block1_X, block1_Y)){
-                    if(!gameBlock.isHided(block0_X, block0_Y)){
-                        if(gameBox.blockEqual(block0_X, block0_Y, block1_X, block1_Y)){
-                            gameBox.combineBlock(block0_X, block0_Y, block1_X, block1_Y);
-                            gameBox.moveBlock(block1_X, block1_Y, block2_X, block2_Y);
-                            result.combineHappen++;
-                            result.moveHappen++;
-                        }else{
-                            gameBox.moveBlock(block1_X, block1_Y, block2_X, block2_Y);
-                            gameBox.moveBlock(block0_X, block0_Y, block1_X, block1_Y);
-                            result.moveHappen++;
-                        }
-                    }else{
-                        gameBox.moveBlock(block1_X, block1_Y, block2_X, block2_Y);
-                        result.moveHappen++;
-                    }
-                }else{
-                    if(!gameBlock.isHided(block0_X, block0_Y)){
-                        gameBox.moveBlock(block0_X, block0_Y, block2_X, block2_Y);
-                        result.moveHappen++;
-                    }else{
-                        // do nothing.
-                    }
-                }
-            }else{
-                if(!gameBlock.isHided(block1_X, block1_Y)){
-                    if(gameBox.blockEqual(block1_X, block1_Y, block2_X, block2_Y)){
-                        gameBox.combineBlock(block1_X, block1_Y, block2_X, block2_Y); //----------------
-                        result.combineHappen++;
-                        if(!gameBlock.isHided(block0_X, block0_Y)){
-                            gameBox.moveBlock(block0_X, block0_Y, block1_X, block1_Y);
-                            result.moveHappen++;
-                        }else{
-                            // do nothing.
-                        }
-                    }else{
-                        if(!gameBlock.isHided(block0_X, block0_Y)){
-                            if(gameBox.blockEqual(block0_X, block0_Y, block1_X, block1_Y)){
-                                gameBox.combineBlock(block0_X, block0_Y, block1_X, block1_Y);
-                                result.combineHappen++;
-                            }else{
-                                // do nothing.
-                            }
-                        }else{
-                            // do nothing.
-                        }
-                    }
-                }else{
-                    if(!gameBlock.isHided(block0_X, block0_Y)){
-                        if(gameBox.blockEqual(block0_X, block0_Y, block2_X, block2_Y)){
-                            gameBox.combineBlock(block0_X, block0_Y, block2_X, block2_Y);
-                            result.combineHappen++;
-                        }else{
-                            gameBox.moveBlock(block0_X, block0_Y, block1_X, block1_Y);
-                            result.moveHappen++;
-                        }
-                    }else{
-                        // do nothing.
-                    }
-                }
-            }
-        }else{
-            if(!gameBlock.isHided(block1_X, block1_Y)){
-                if(gameBox.blockEqual(block1_X, block1_Y, block3_X, block3_Y)){
-                    gameBox.combineBlock(block1_X, block1_Y, block3_X, block3_Y);
-                    result.combineHappen++;
-                    if(!gameBlock.isHided(block0_X, block0_Y)){
-                        gameBox.moveBlock(block0_X, block0_Y, block2_X, block2_Y);
-                        result.moveHappen++;
-                    }else{
-                        // do nothing.
-                    }
-                }else{
-                    gameBox.moveBlock(block1_X, block1_Y, block2_X, block2_Y);
-                    result.moveHappen++;
-                    if(!gameBlock.isHided(block0_X, block0_Y)){
-                        gameBox.moveBlock(block0_X, block0_Y, block1_X, block1_Y);
-                        result.moveHappen++;
-                    }else{
-                        // do nothing.
-                    }
-                }
-            }else{
-                if(!gameBlock.isHided(block0_X, block0_Y)){
-                    if(gameBox.blockEqual(block0_X, block0_Y, block3_X, block3_Y)){
-                        gameBox.combineBlock(block0_X, block0_Y, block3_X, block3_Y);
-                        result.combineHappen++;
-                    }else{
-                        gameBox.moveBlock(block0_X, block0_Y, block2_X, block2_Y);
-                        result.moveHappen++;
-                    }
-
-                }else{
-                    // do nothing.
-                }
-            }
-        }
-    }else{
-        if(!gameBlock.isHided(block2_X, block2_Y)){
-            if(!gameBlock.isHided(block1_X, block1_Y)){
-                if(gameBox.blockEqual(block1_X, block1_Y, block2_X, block2_Y)){
-                    gameBox.combineBlock(block1_X, block1_Y, block2_X, block2_Y);
-                    gameBox.moveBlock(block2_X, block2_Y, block3_X, block3_Y);
-                    result.combineHappen++;
-                    result.moveHappen++;
-                }else{
-                    if(!gameBlock.isHided(block0_X, block0_Y)){
-                        if(gameBox.blockEqual(block0_X, block0_Y, block1_X, block1_Y)){
-                            gameBox.combineBlock(block0_X, block0_Y, block1_X, block1_Y);
-                            result.combineHappen++;
-                            gameBox.moveBlock(block2_X, block2_Y, block3_X, block3_Y);
-                            gameBox.moveBlock(block1_X, block1_Y, block2_X, block2_Y);
-                            result.moveHappen++;
-                        }else{
-                            gameBox.moveBlock(block2_X, block2_Y, block3_X, block3_Y);
-                            gameBox.moveBlock(block1_X, block1_Y, block2_X, block2_Y);
-                            gameBox.moveBlock(block0_X, block0_Y, block1_X, block1_Y);
-                        }
-                    }else{
-
-                    }
-                }
-            }else{
-                if(!gameBlock.isHided(block0_X, block0_Y)){
-                    if(gameBox.blockEqual(block0_X, block0_Y, block2_X, block2_Y)){
-                        gameBox.combineBlock(block0_X, block0_Y, block2_X, block2_Y);
-                        result.combineHappen++;
-                        gameBox.moveBlock(block2_X, block2_Y, block3_X, block3_Y);
-                        result.moveHappen++;
-                    }else{
-                        gameBox.moveBlock(block2_X, block2_Y, block3_X, block3_Y);
-                        gameBox.moveBlock(block0_X, block0_Y, block2_X, block2_Y);
-                        result.moveHappen++;
-                    }
-                }else{
-                    gameBox.moveBlock(block2_X, block2_Y, block3_X, block3_Y);
-                    result.moveHappen++;
-                }
-            }
-        }else{
-            if(!gameBlock.isHided(block1_X, block1_Y)){
-                if(!gameBlock.isHided(block0_X, block0_Y)){
-                    if(gameBox.blockEqual(block0_X, block0_Y, block1_X, block1_Y)){
-                        gameBox.combineBlock(block0_X, block0_Y, block1_X, block1_Y);
-                        gameBox.moveBlock(block1_X, block1_Y, block3_X, block3_Y);
-                        result.combineHappen++;
-                        result.moveHappen++;
-                    }else{
-                        gameBox.moveBlock(block1_X, block1_Y, block3_X, block3_Y);
-                        gameBox.moveBlock(block0_X, block0_Y, block2_X, block2_Y);
-                        result.moveHappen++;
-                    }
-                }else{
-                    gameBox.moveBlock(block1_X, block1_Y, block3_X, block3_Y);
-                    result.moveHappen++
-                }
-            }else{
-                if(!gameBlock.isHided(block0_X, block0_Y)) {
-                    gameBox.moveBlock(block0_X, block0_Y, block3_X, block3_Y);
-                    result.moveHappen++;
-                }else{
-                    // do nothing.
-                }
-            }
-        }
-    }
-
-    return result;
-}
-
 /*
  * 函数功能：根据操作方向决定如何处理block：移动/合并/生成
  * 参数：设移动方向为x轴，这里要传入轴上编号为0的block的行值、列值
@@ -400,9 +272,7 @@ function gameOver() {
 
     //如果上、下、左、右四个方向都无法发生合并或移动的话，说明游戏结束
     if ( (result.moveHappen === 0) && (result.combineHappen === 0) ){
-        EventUtil.removeHandler(window, "keydown", processDirectionKey);
-        alert("********** Game Over ! **********");
-        // console.log("**********Game Over !***********");
+        gameOverDialog();
     }
 }
 
@@ -471,8 +341,10 @@ function processDirectionKey(event) {
     //如果发生了移动或合并的动作，就随机生成新block，接着计算总分，否则，判断是否输了
     if ( (result.moveHappen > 0) || (result.combineHappen > 0) ){
 
-        //超时调用，是新生成的块晚一点出现，如过延时太长会导致跟不上操作
-        setTimeout("gameBox.randomCreateBlock();insertScore();",80);
+        //超时调用，使新生成的块晚一点出现，如果延时太长会导致跟不上操作
+        // setTimeout("gameBox.randomCreateBlock();insertScore();",130);
+        gameBox.randomCreateBlock();
+        insertScore();
     }else{
         gameOver();
     }
@@ -518,7 +390,7 @@ function btnShortCutProcess(event) {
 
     //“帮助”的快捷键
     if (charCode === 72){
-
+        getHelp();
     }
 
 }
@@ -528,36 +400,35 @@ EventUtil.addHandler(window, "keydown", processDirectionKey);
 EventUtil.addHandler(window, "keydown", btnShortCutProcess);
 
 /* 绑定、添加鼠标click事件 */
-EventUtil.addHandler(document.getElementById("menuBar"), "click" ,function (event) {
+EventUtil.addHandler(window, "click" ,function (event) {
     event = EventUtil.getEvent(event);
     var target = EventUtil.getTarget(event);
 
     switch(target.id){
         case "restartButton":
-            gameBox.cleanAllBlocks();
-            gameBox.randomCreateBlock();
-            gameBox.randomCreateBlock();
-
-            //保存初始状态便于返回上一步操作
-            gameBox.saveBlocks();
-
-            //重新计算总分
-            insertScore();
-
-            //重新添加事件
-            EventUtil.addHandler(window, "keydown", processDirectionKey);
-            break;
-
+        restartGame();
+        break;
+        
         case "backStateButton":
-            gameBox.backState();
-
-            //重新计算总分
-            insertScore();
-            break;
-
+        gameBox.backState();
+        
+        //重新计算总分
+        insertScore();
+        break;
+        
         case "helpButton":
-            //gameBlock.hideBlock("block0_0", "show");
-            break;
+        getHelp();
+        break;
+        
+        case "startButton":
+        case "continueButton":
+        closeDialog();
+        break;
+        
+        case "againButton":
+        closeDialog();
+        restartGame();
+        break;
 
         //no default.
     }
