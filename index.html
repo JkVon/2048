@@ -5,36 +5,65 @@
 	<meta charset="UTF-8">
 	<title>2048_JkVon</title>
 	<link rel="stylesheet" href="./style/main.css">
-
 </head>
+
 <body>
-<div class="main">
-<div class="stateBar" id="stateBar">
-	Score: <div class="scoreBar" id="scoreBar"> </div>
+
+<div id="dialogWindow" class="dialogWindow">
+	<div id="helpWindow" class="helpWindow">
+		<h2><b>游戏帮助</b></h2>
+		<ol>
+			<li>按方向键（或者<kbd>W</kbd>、<kbd>S</kbd>、<kbd>A</kbd>、<kbd>D</kbd>键）控制块的<b>移动方向</b>；</li>
+			<li><b>重新开始游戏</b>的快键键为：<kbd>R</kbd>；</li>
+			<li><b>返回上一步操作</b>的快键键为：<kbd>B</kbd>；</li>
+			<li><b>唤出帮助菜单</b>的快键键为：<kbd>H</kbd></li>
+		</ol>
+		<button id="startButton" class="startButton">开始游戏</button>
+		<button id="continueButton" class="continueButton continueButton--hide">继续游戏</button>
+	</div>
+
+	<div id="gameOverWindow" class="gameOverWindow gameOverWindow--hide">
+		<h2><b>游戏结束</b></h2>
+		<p>&nbsp;已经没有块可以移动了<br>你的最终得分是：<b id="dialogScore"> </b> 分</p>
+		<button id="againButton">再来一局</button>
+	</div>
+
+	<div id="winWindow" class="winWindow winWindow--hide">
+		<h2><b>恭喜你！</b></h2>
+		<p>成功合成了<b id="successScoreBar"> </b>！！再接再砺吧</p>
+		<button id="continueButton" class="continueButton">继续游戏</button>
+	</div>
 </div>
-<div class="blockBox" id="blockBox">
-	<div class="block block--hide" id="block0_0">0</div>
-	<div class="block block--hide" id="block0_1">0</div>
-	<div class="block block--hide" id="block0_2">0</div>
-	<div class="block block--hide" id="block0_3">0</div>
-	<div class="block block--hide" id="block1_0">0</div>
-	<div class="block block--hide" id="block1_1">0</div>
-	<div class="block block--hide" id="block1_2">0</div>
-	<div class="block block--hide" id="block1_3">0</div>
-	<div class="block block--hide" id="block2_0">0</div>
-	<div class="block block--hide" id="block2_1">0</div>
-	<div class="block block--hide" id="block2_2">0</div>
-	<div class="block block--hide" id="block2_3">0</div>
-	<div class="block block--hide" id="block3_0">0</div>
-	<div class="block block--hide" id="block3_1">0</div>
-	<div class="block block--hide" id="block3_2">0</div>
-	<div class="block block--hide" id="block3_3">0</div>
-</div>
-<div class="menuBar" id="menuBar">
-	<button class="btn-restart" id="restartButton">Restart (R)</button>
-	<button class="btn-backStep" id="backStateButton">BackStep (B)</button>
-	<button class="btn-help" id="helpButton">Help (H)</button>
-</div>
+
+
+<div id="main" class="main main--faded">
+	<div class="stateBar" id="stateBar">
+		<label for="scoreBar">得分：</label><div class="scoreBar" id="scoreBar"> </div>
+		<!-- <label for="topScoreBar">最高得分：</label><div class="topScoreBar" id="topScoreBar"> </div> -->
+	</div>
+	<div class="blockBox" id="blockBox">
+		<div class="block block--hide" id="block0_0"> </div>
+		<div class="block block--hide" id="block0_1"> </div>
+		<div class="block block--hide" id="block0_2"> </div>
+		<div class="block block--hide" id="block0_3"> </div>
+		<div class="block block--hide" id="block1_0"> </div>
+		<div class="block block--hide" id="block1_1"> </div>
+		<div class="block block--hide" id="block1_2"> </div>
+		<div class="block block--hide" id="block1_3"> </div>
+		<div class="block block--hide" id="block2_0"> </div>
+		<div class="block block--hide" id="block2_1"> </div>
+		<div class="block block--hide" id="block2_2"> </div>
+		<div class="block block--hide" id="block2_3"> </div>
+		<div class="block block--hide" id="block3_0"> </div>
+		<div class="block block--hide" id="block3_1"> </div>
+		<div class="block block--hide" id="block3_2"> </div>
+		<div class="block block--hide" id="block3_3"> </div>
+	</div>
+	<div class="menuBar" id="menuBar">
+		<button class="btn-restart" id="restartButton">重新开始 (R)</button>
+		<button class="btn-backStep" id="backStateButton">返回上一步 (B)</button>
+		<button class="btn-help" id="helpButton">游戏帮助 (H)</button>
+	</div>
 </div>
 
 <script type="text/javascript" src="./js/event_util.js"></script>

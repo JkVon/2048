@@ -34,6 +34,9 @@ GameBox.prototype = {
     /*用该属性来判断创建的对象的类型*/
     constructor: GameBox,
 
+
+    successScore: 32,
+
     /*
      * 函数功能：随机生成值为2或4的block
      * 参数：无
@@ -50,16 +53,20 @@ GameBox.prototype = {
             block_row = Math.floor(Math.random() * 4);
             block_column = Math.floor(Math.random() * 4);
             blockID = gameBlock.convertToBlockId(block_row, block_column);
-
-            // console.log("!!!!!!!!!!!!!!Recreate!!!!!!!!!!!!!!!!!");
         }
 
         gameBlock.setBlockNum(blockID, blockNum_2Or4);
+        document.getElementById(blockID).classList.add("block--new");
+        
+        var that = this;
+        setTimeout(function() {
+            document.getElementById(blockID).classList.remove("block--new");
+        },200);
+        // gameBlock.setBlockNum(blockID, "32");
 
 
         //先确保已经移除过渡动画，才能添加过渡动画成功
         gameBlock.hideBlock(blockID, "show");
-        // console.log("ok");
         return blockID;
     },
 
@@ -96,7 +103,6 @@ GameBox.prototype = {
      */
     calculateTotalScore : function () {
         var totalScore = 0,
-            successScore = 2048,
             i,j;
 
         for(i = 0; i < 4; i++){
@@ -116,8 +122,12 @@ GameBox.prototype = {
      */
     moveBlock: function (fromBlockID, toBlockID) {
         var blockVal = document.getElementById(fromBlockID).firstChild.nodeValue;
-
+        
         gameBlock.hideBlock(fromBlockID, "hide");
+
+
+        var block = document.getElementById(fromBlockID);
+
         gameBlock.setBlockNum(toBlockID, blockVal);
         gameBlock.hideBlock(toBlockID, "show");
     },
@@ -136,24 +146,16 @@ GameBox.prototype = {
         // gameBlock.hideBlock(toBlockID, "show");
 
         
-        if(blockVal === 16) {
-            if (!confirm("Awesome !!! You've got " + blockVal +"! press OK to contimue, press Cancel to restart.")) {
+        console.log("success: "+this.successScore);
 
-                // 重新开始游戏
-                gameBox.cleanAllBlocks();
-                gameBox.randomCreateBlock();
-                gameBox.randomCreateBlock();
+        if(Number(blockVal) === this.successScore) {
+            // alert(this.successScore); 
+            winGame(this.successScore);
 
-                //保存初始状态便于返回上一步操作
-                gameBox.saveBlocks();
-
-                //重新计算总分
-                insertScore();
-
-                //重新添加事件
-                EventUtil.addHandler(window, "keydown", processDirectionKey);
-            }
+            // double
+            this.successScore += this.successScore;
         }
+
     },
 
     /* 函数功能： 调用该方法，逐一保存16个块的当前状态——当前显示的数值 或 null */
@@ -189,3 +191,15 @@ GameBox.prototype = {
 
 
 };
+
+function winGame(successScore) {
+    var dialogWindow = document.getElementById("dialogWindow"),
+        winWindow = document.getElementById("winWindow"),
+        successScoreBar = document.getElementById("successScoreBar");
+        mainWindow = document.getElementById("main");
+
+    successScoreBar.firstChild.nodeValue = successScore.toString();
+    mainWindow.classList.add("main--faded");
+    dialogWindow.classList.remove("dialogWindow--hide");
+    winWindow.classList.remove("winWindow--hide");
+}
